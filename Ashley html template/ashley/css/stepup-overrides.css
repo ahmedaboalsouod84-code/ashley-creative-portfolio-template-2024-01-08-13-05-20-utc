@@ -1,0 +1,147 @@
+:root {
+    --accent-new: #007995;
+}
+
+/* Preloader text and reveal box */
+.mil-preloader .mil-h3.mil-muted.mil-thin,
+.mil-preloader .mil-reveal-box,
+.mil-preloader .mil-reveal-frame .mil-reveal-box {
+    color: var(--accent-new) !important;
+    background: rgba(0,121,149,0.06) !important;
+    border-color: var(--accent-new) !important;
+}
+
+/* Subtle preloader gradient */
+.mil-preloader .mil-preloader-animation .mil-reveal-frame .mil-reveal-box {
+    background: linear-gradient(90deg, rgba(0,121,149,0.12), rgba(0,121,149,0.04)) !important;
+}
+
+/* Main accent overrides */
+.mil-accent,
+.mil-button,
+.mil-services-button,
+.mil-link.mil-muted,
+.mil-label.mil-accent,
+.mil-link.mil-dark.mil-arrow-place {
+    color: #ffffff !important;
+    border-color: var(--accent-new) !important;
+}
+
+/* Make arrow SVG inside primary buttons visible (white) */
+.mil-button .mil-arrow,
+.mil-button .mil-arrow path {
+    fill: #ffffff !important;
+    stroke: #ffffff !important;
+}
+
+/* Logo sizing for StepUp image */
+.mil-logo img {
+    height: 48px;
+    display: block;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .mil-logo img {
+        height: 42px;
+    }
+}
+
+/* Progress / scrollbar indicator */
+.mil-progress {
+    background: var(--accent-new) !important;
+}
+
+/* Gradient overlay used on hero and other places */
+.mil-gradient {
+    background: linear-gradient(90deg, rgba(0,121,149,0.06), rgba(0,121,149,0.02)) !important;
+}
+
+/* Circle text and svg accents */
+.mil-ct-svg text,
+.mil-ct-svg textPath {
+    fill: #ffffff !important;
+    color: #ffffff !important;
+    stroke: none !important;
+}
+
+/* Extra-specific rule to ensure the circle's letters inside the banner are white */
+#swupMain .mil-circle-text svg text,
+#swupMain .mil-circle-text svg textPath,
+#swupMain .mil-circle-text .mil-ct-svg text,
+#swupMain .mil-circle-text .mil-ct-svg textPath {
+    fill: #ffffff !important;
+    color: #ffffff !important;
+    stroke: none !important;
+}
+
+/* Small helper class to apply the StepUp accent color */
+.stepup-accent {
+    color: var(--accent-new) !important;
+}
+
+/* Bold version of the accent for headings */
+.stepup-accent-bold {
+    color: var(--accent-new) !important;
+    font-weight: 700 !important;
+}
+
+/* Scrollbar styling (WebKit) */
+body::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+body::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.04);
+}
+body::-webkit-scrollbar-thumb {
+    background: var(--accent-new) !important;
+    border-radius: 10px;
+    border: 3px solid rgba(0,0,0,0.03);
+}
+
+/* Firefox scrollbar */
+* {
+    scrollbar-color: var(--accent-new) rgba(0,0,0,0.04) !important;
+    scrollbar-width: thin !important;
+}
+
+/* Floating mobile preview test link */
+.mil-mobile-test {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 9999;
+}
+.mil-mobile-test a {
+    display: inline-block;
+    background: rgba(0,0,0,0.7);
+    color: #ffffff !important;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+.mil-mobile-test a:hover {
+    background: var(--accent-new);
+}
+
+:root {
+    --accent-new: #007995;
+}
+
+/* Typography imports */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Source+Sans+Pro:wght@300;400;600;700&family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;700&display=swap');
+
+/* English/Arabic font pairing:
+   - Headings: Montserrat + Cairo
+   - Body text: Source Sans Pro + Tajawal */
+html, body {
+    font-family: 'Source Sans Pro', 'Tajawal', sans-serif;
+}
+h1, h2, h3, h4, h5, h6,
+.mil-h1, .mil-h2, .mil-h3, .mil-h4, .mil-h5, .mil-h6 {
+    font-family: 'Montserrat', 'Cairo', sans-serif;
+}
