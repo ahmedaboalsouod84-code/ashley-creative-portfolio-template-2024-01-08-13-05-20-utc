@@ -1,3 +1,6 @@
+/* Typography imports - must be at the top */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Source+Sans+Pro:wght@300;400;600;700&family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;700&display=swap');
+
 :root {
     --accent-new: #007995;
 }
@@ -42,10 +45,103 @@
     object-fit: contain;
 }
 
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
     .mil-logo img {
         height: 42px;
     }
+    
+    /* Improve touch targets for mobile */
+    .mil-button,
+    .mil-link,
+    a {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Better spacing on mobile */
+    .mil-p-120-90 {
+        padding: 60px 30px !important;
+    }
+    
+    /* Improve text readability on mobile */
+    body {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+    
+    h1, .mil-h1 {
+        font-size: 2rem !important;
+        line-height: 1.3;
+    }
+    
+    h2, .mil-h2 {
+        font-size: 1.75rem !important;
+        line-height: 1.3;
+    }
+}
+
+/* Accessibility Improvements */
+/* Focus states for keyboard navigation */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 3px solid var(--accent-new) !important;
+    outline-offset: 2px !important;
+    border-radius: 4px;
+}
+
+/* Skip to main content link for screen readers */
+.skip-to-main {
+    position: absolute;
+    left: -9999px;
+    z-index: 999;
+}
+
+.skip-to-main:focus {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20px;
+    padding: 12px 24px;
+    background: var(--accent-new);
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+/* Improve contrast for better readability */
+.mil-light-soft {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Ensure images have proper alt text styling */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Improve form accessibility */
+input[type="text"],
+input[type="email"],
+textarea {
+    min-height: 44px;
+    font-size: 16px; /* Prevents zoom on iOS */
+}
+
+/* Better contrast for links */
+a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+}
+
+a:hover {
+    text-decoration-thickness: 2px;
 }
 
 /* Progress / scrollbar indicator */
@@ -128,13 +224,6 @@ body::-webkit-scrollbar-thumb {
     background: var(--accent-new);
 }
 
-:root {
-    --accent-new: #007995;
-}
-
-/* Typography imports */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Source+Sans+Pro:wght@300;400;600;700&family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;700&display=swap');
-
 /* English/Arabic font pairing:
    - Headings: Montserrat + Cairo
    - Body text: Source Sans Pro + Tajawal */
@@ -144,4 +233,350 @@ html, body {
 h1, h2, h3, h4, h5, h6,
 .mil-h1, .mil-h2, .mil-h3, .mil-h4, .mil-h5, .mil-h6 {
     font-family: 'Montserrat', 'Cairo', sans-serif;
+}
+
+/* ============================================
+   PERFORMANCE & UX ENHANCEMENTS
+   ============================================ */
+
+/* Sticky Header on Scroll - Only apply to top section */
+.mil-frame {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: transparent !important; /* Ensure frame doesn't block content */
+}
+
+.mil-frame.sticky-header {
+    background: transparent !important; /* Critical: Don't add background to entire frame */
+}
+
+.mil-frame.sticky-header .mil-frame-top {
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+    padding: 20px 60px;
+    width: 100%;
+}
+
+.mil-dark-bg .mil-frame.sticky-header .mil-frame-top {
+    background: rgba(0, 0, 0, 0.98) !important;
+}
+
+@media (max-width: 1200px) {
+    .mil-frame.sticky-header .mil-frame-top {
+        padding: 15px 30px;
+    }
+}
+
+/* CRITICAL FIX: Ensure content is always visible and scrollable */
+.mil-content {
+    position: relative !important;
+    z-index: 1 !important;
+    background: transparent !important;
+    min-height: 100vh;
+    overflow: visible !important;
+}
+
+/* CRITICAL FIX: Allow scrolling - Template uses body/html for scrolling */
+.mil-wrapper {
+    overflow: visible !important; /* Allow content to flow */
+    height: auto !important;
+    max-height: none !important;
+    position: relative !important;
+}
+
+/* Ensure body is the scroll container */
+html {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: 100% !important;
+}
+
+body {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    position: relative !important;
+}
+
+/* Ensure content container allows scrolling */
+.mil-content {
+    position: relative !important;
+    z-index: 1 !important;
+    overflow: visible !important;
+    min-height: 100vh !important;
+}
+
+/* Ensure body and html allow scrolling */
+html {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    height: auto !important;
+}
+
+body {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    position: relative !important;
+}
+
+/* Ensure frame doesn't block content */
+.mil-frame {
+    pointer-events: none !important; /* Allow clicks to pass through */
+    background: transparent !important;
+}
+
+.mil-frame > * {
+    pointer-events: auto !important; /* But allow clicks on frame children */
+}
+
+/* ============================================
+   CRITICAL FIX: Remove White Overlay Blocking Content
+   ============================================ */
+
+/* Hide curtain completely */
+.mil-curtain {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    z-index: -999 !important;
+}
+
+/* Force hide preloader after animation */
+.mil-preloader.mil-hidden {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    z-index: -999 !important;
+    position: fixed !important;
+    top: -9999px !important;
+    left: -9999px !important;
+}
+
+/* Ensure preloader doesn't block - add transition */
+.mil-preloader {
+    transition: opacity 0.8s ease, visibility 0.8s ease, display 0s 0.8s !important;
+}
+
+/* Remove any white background from frame */
+.mil-frame {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+.mil-frame.sticky-header {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Ensure frame-top in sticky mode doesn't create full-screen overlay */
+.mil-frame.sticky-header .mil-frame-top {
+    height: auto !important;
+    max-height: 90px !important;
+    padding: 20px 60px !important;
+}
+
+@media (max-width: 1200px) {
+    .mil-frame.sticky-header .mil-frame-top {
+        padding: 15px 30px !important;
+        max-height: 70px !important;
+    }
+}
+
+/* Enhanced CTA Buttons - More Prominent */
+.mil-button {
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 121, 149, 0.3);
+}
+
+.mil-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 121, 149, 0.4);
+}
+
+.mil-button:active {
+    transform: translateY(0);
+}
+
+/* Primary CTA Enhancement */
+.mil-banner .mil-button,
+.mil-soft-bg .mil-button {
+    font-size: 16px;
+    padding: 16px 32px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Improved Back-to-Top Button */
+.mil-back-to-top {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    transform: translateY(10px);
+}
+
+.mil-back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.mil-back-to-top .mil-link {
+    background: var(--accent-new);
+    color: #ffffff !important;
+    padding: 12px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0, 121, 149, 0.3);
+    transition: all 0.3s ease;
+}
+
+.mil-back-to-top .mil-link:hover {
+    background: #006a7f;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 121, 149, 0.4);
+}
+
+/* Image Lazy Loading Styles */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+img[loading="lazy"].loaded {
+    opacity: 1;
+}
+
+/* Loading State for Images */
+.mil-image-frame {
+    position: relative;
+    overflow: hidden;
+}
+
+.mil-image-frame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        rgba(0, 121, 149, 0.1) 0%, 
+        rgba(0, 121, 149, 0.05) 50%, 
+        rgba(0, 121, 149, 0.1) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mil-image-frame.loading::before {
+    opacity: 1;
+}
+
+.mil-image-frame img.loaded ~ .mil-image-frame::before {
+    opacity: 0;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Enhanced Mobile Menu */
+@media (max-width: 768px) {
+    .mil-menu-frame {
+        transition: transform 0.3s ease;
+    }
+    
+    .mil-menu-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    /* Better mobile menu animation */
+    .mil-menu-frame.active {
+        transform: translateX(0);
+    }
+}
+
+/* Smooth Scroll Behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Performance: Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Enhanced Focus States for Better Accessibility */
+.mil-button:focus-visible,
+.mil-link:focus-visible {
+    outline: 3px solid var(--accent-new);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+/* CTA Section Enhancements */
+.mil-soft-bg .mil-button {
+    background: var(--accent-new);
+    border: 2px solid var(--accent-new);
+}
+
+.mil-soft-bg .mil-button:hover {
+    background: #006a7f;
+    border-color: #006a7f;
+}
+
+/* Improved Card Hover Effects */
+.mil-service-card-sm:hover,
+.mil-blog-card:hover,
+.mil-portfolio-item:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+}
+
+/* Better Form Input Styling */
+.mil-subscribe-form input {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mil-subscribe-form input:focus {
+    border-color: var(--accent-new);
+    box-shadow: 0 0 0 3px rgba(0, 121, 149, 0.1);
+}
+
+/* Loading Spinner for Dynamic Content */
+.mil-loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0, 121, 149, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--accent-new);
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }

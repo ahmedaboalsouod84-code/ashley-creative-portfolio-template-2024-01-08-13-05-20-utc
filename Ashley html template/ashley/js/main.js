@@ -1077,4 +1077,157 @@ $(function () {
 
     });
 
+    /***************************
+    
+    StepUp UX Enhancements
+    
+    ***************************/
+    
+    // CRITICAL FIX: Ensure scrolling works
+    (function() {
+        // Force enable scrolling on body/html
+        document.documentElement.style.overflowY = 'auto';
+        document.body.style.overflowY = 'auto';
+        document.body.style.height = 'auto';
+        
+        // Ensure wrapper doesn't block
+        const wrapper = document.querySelector('.mil-wrapper');
+        if (wrapper) {
+            wrapper.style.overflow = 'visible';
+            wrapper.style.height = 'auto';
+        }
+        
+        // Hide preloader if it's still visible
+        const preloader = document.querySelector('.mil-preloader');
+        if (preloader) {
+            setTimeout(function() {
+                preloader.style.display = 'none';
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+                preloader.classList.add('mil-hidden');
+            }, 100);
+        }
+        
+        // Ensure curtain doesn't block
+        const curtain = document.querySelector('.mil-curtain');
+        if (curtain) {
+            curtain.style.pointerEvents = 'none';
+            curtain.style.opacity = '0';
+            curtain.style.zIndex = '-1';
+        }
+    })();
+    
+    // Sticky Header on Scroll - Only apply to frame-top
+    const milFrame = document.querySelector('.mil-frame');
+    const milFrameTop = document.querySelector('.mil-frame-top');
+    let lastScroll = 0;
+    
+    if (milFrame && milFrameTop) {
+        window.addEventListener('scroll', function() {
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (currentScroll > 100) {
+                milFrame.classList.add('sticky-header');
+            } else {
+                milFrame.classList.remove('sticky-header');
+            }
+            
+            lastScroll = currentScroll;
+        });
+    }
+    
+    // Back-to-Top Button Visibility
+    const backToTop = document.querySelector('.mil-back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+    }
+    
+    // Lazy Loading Images with Intersection Observer
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                    }
+                    img.classList.add('loaded');
+                    img.parentElement.classList.remove('loading');
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px'
+        });
+        
+        // Observe all images with loading="lazy"
+        document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+            img.parentElement.classList.add('loading');
+            if (img.src && !img.dataset.src) {
+                img.dataset.src = img.src;
+                img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E';
+            }
+            imageObserver.observe(img);
+        });
+    }
+    
+    // Enhanced CTA Button Interactions
+    document.querySelectorAll('.mil-button').forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+        });
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    
+    // Smooth Scroll for Anchor Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#' && href.length > 1) {
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+    });
+    
+    // Loading State for Forms
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            if (submitBtn && !submitBtn.disabled) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="mil-loading-spinner"></span> Sending...';
+            }
+        });
+    });
+    
+    // Performance: Preload Critical Images
+    const criticalImages = [
+        'img/logo-stepup.png',
+        'img/photo/1-1.jpeg'
+    ];
+    
+    criticalImages.forEach(src => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = src;
+        document.head.appendChild(link);
+    });
+
 });
