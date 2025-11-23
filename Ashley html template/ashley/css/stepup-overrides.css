@@ -1,6 +1,31 @@
 /* Typography imports - must be at the top */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Source+Sans+Pro:wght@300;400;600;700&family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;700&display=swap');
 
+/* --- Modern Smooth Scroll & Premium Scrollbar --- */
+html {
+    scroll-behavior: smooth; /* Smooth anchor jumps */
+}
+
+/* Sleek Scrollbar Design */
+::-webkit-scrollbar {
+    width: 8px; /* Thinner for a modern look */
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.02); /* Very subtle track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #007995; /* Brand Accent Color */
+    border-radius: 10px; /* Rounded pill shape */
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #005f75; /* Darker on hover */
+}
+
 :root {
     --accent-new: #007995;
 }
@@ -183,23 +208,9 @@ a:hover {
     font-weight: 700 !important;
 }
 
-/* Scrollbar styling (WebKit) */
-body::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-}
-body::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.04);
-}
-body::-webkit-scrollbar-thumb {
-    background: var(--accent-new) !important;
-    border-radius: 10px;
-    border: 3px solid rgba(0,0,0,0.03);
-}
-
-/* Firefox scrollbar */
+/* Firefox scrollbar - Premium design */
 * {
-    scrollbar-color: var(--accent-new) rgba(0,0,0,0.04) !important;
+    scrollbar-color: #007995 rgba(0, 0, 0, 0.02) !important;
     scrollbar-width: thin !important;
 }
 
@@ -513,10 +524,7 @@ img[loading="lazy"].loaded {
     }
 }
 
-/* Smooth Scroll Behavior */
-html {
-    scroll-behavior: smooth;
-}
+/* Smooth Scroll Behavior - Moved to top of file */
 
 /* Performance: Reduce motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
